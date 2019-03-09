@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
+* {
+  background-color: #131516;
+}
+
+body {
+  font-family: 'Rubik';
+}
+
+.btn {
+  text-align: center;
+  width: 90px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.main {
+    font-family: 'Rubik';
+    margin: 50px 50px;
+}
+
+.main-container {
+    color: white;
+    text-align: center;
+}
+
+p {
+  font-size: 70px;
+}
+
+.ul-demo {
+  list-style: none;
+  font-size: 30px;
+}

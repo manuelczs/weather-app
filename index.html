@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <title>Weatter-App</title>
+</head>
+
+<body class="main-container">
+  <div class="main">
+    <p>Local Temp</p>
+    <p>Weatter-App</p>
+    <!-- <button onclick='getLocation()' class="btn" id="btn">Click!</button> -->
+    <div id="demo"></div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script>
+    var api_key = '4f8ccce8ccbe187edde58e9da5d0ce85';
+  
+    var x = document.getElementById("demo");
+
+    var getLocation = () => {
+      if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    var showPosition = (position) => {
+      var coords = {};
+      coords.lat = position.coords.latitude;
+      coords.lon = position.coords.longitude;
+      var URL = `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&appid=${api_key}`;
+      console.log(URL)
+      $.getJSON(URL, (data) => {
+        var rett = {};
+        rett.temp = data.temp;
+        rett.weather = data.weather[0].main;
+        rett.description = data.weather[0].description;
+        rett.temp = Math.round(data.main.temp - 273.15, 2);
+        rett.humidity = data.main.humidity;
+        rett.country = data.sys.country;
+        rett.name = data.name;
+        rett.cod = data.cod;
+        console.log(rett);
+        x.innerHTML = `<div>
+          <ul class="ul-demo">
+            <li>${rett.name}, ${rett.country}</li>
+            <li>${rett.temp}°C</li>
+            <li>${rett.weather}</li>
+          </ul>
+        </div>`;
+        return x;
+      });
+
+    }
+
+    getLocation();
+
+  </script>
+
+</body>
+
+</html>
